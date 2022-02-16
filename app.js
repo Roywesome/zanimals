@@ -30,11 +30,12 @@ formulario.addEventListener('submit', (e) => {
     //Validar
     
     if(idAnimal === ''|| nombre === '' || nombreCientifico === '' || orden === '' || familia === '' || promVida === '' || img === ''){
-        console.log('Error')
+        showAlerta('Por favor ingrese todos los campos.', 'danger')
     }else{
         let animals = getAnimals(); 
         animals.push(animal);
         localStorage.setItem('animals', JSON.stringify(animals));
+        showAlerta('Se guardo correctamente.', 'success')
         showAnimals();
         Reseat();
     };
@@ -129,7 +130,7 @@ function btnDelete(id){
 }
 
 
-
+/*
 function btnEdit(id){
     //console.log(id)
     const animals = getAnimals();
@@ -175,6 +176,22 @@ function btnEdit(id){
     });
 
     
+}
+*/
+
+function showAlerta(message, className){
+    const div = document.createElement('div');
+    div.className = `alert alert-${className}`;
+    div.appendChild(document.createTextNode(message));
+
+    /*Visualizacion de las posiciones
+    beforebegin
+    afterend
+     */
+    const h1 = document.querySelector('.texto');
+    h1.insertAdjacentElement("afterend", div);
+
+    setTimeout(() => document.querySelector('.alert').remove(), 3000)
 }
 
 function btnEditar(pos){
