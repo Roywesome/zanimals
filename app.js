@@ -81,7 +81,7 @@ function showAnimals(){
     <div class="d-grid gap-2">
     <!--<button onclick="btnDelete('${animal.id}')" class="btn btn-danger delete">Delete</button>-->
     <button type="button" onclick="btnEliminar(${pos})" class="btn btn-danger delete">Delete</button>
-    <button  type="button" onclick="btnEdit('${animal.id}')" class="btn btn-info edit" >Edit</button>
+    <button  type="button" onclick="btnEditar(${pos})" class="btn btn-info edit" >Edit</button>
     </div>
     </div>
     </div>
@@ -129,6 +129,7 @@ function btnDelete(id){
 }
 
 
+
 function btnEdit(id){
     //console.log(id)
     const animals = getAnimals();
@@ -174,6 +175,44 @@ function btnEdit(id){
     });
 
     
+}
+
+function btnEditar(pos){
+    let animals = getAnimals();
+    console.log(animals)
+    const animal = animals[pos];
+    
+    if(animal){
+        document.getElementById('idAnimal').value = animal.id;
+        document.getElementById('nombre').value = animal.nombre;
+        document.getElementById('nombreCientifico').value = animal.nombreCientifico;
+        document.getElementById('orden').value = animal.orden;
+        document.getElementById('familia').value = animal.familia;
+        document.getElementById('promVida').value = animal.promVida;
+        document.getElementById('img').value = animal.img;
+
+        const buttonUpdate = document.getElementById('btnForm');
+        buttonUpdate.type = 'button';
+        buttonUpdate.className = 'btn btn-outline-success my-3';
+        buttonUpdate.value = 'Update';
+        buttonUpdate.onclick = () => {
+            const nombre = document.getElementById('nombre').value;
+            const idAnimal = document.getElementById('idAnimal').value;
+            const nombreCientifico = document.getElementById('nombreCientifico').value;
+            const orden = document.getElementById('orden').value;
+            const familia = document.getElementById('familia').value;
+            const promVida = document.getElementById('promVida').value;
+            const img = document.getElementById('img').value;
+
+            const newAnimal = new Animal(idAnimal, nombre, nombreCientifico, orden, familia, promVida, img);
+
+            animals[pos] = newAnimal;
+            console.log(animals);
+            localStorage.setItem('animals', JSON.stringify(animals));
+            showAnimals();
+            Reseat();
+        }
+    }
 }
 
 
